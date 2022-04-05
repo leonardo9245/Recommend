@@ -1,23 +1,36 @@
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import Movies from './componets/Movies';
+
+import Tmdb from './Tmdb';
 
 function App() {
+  const [moviesList, setMoviesList] = useState([]);
+  const [movieGenres, setMovieGenres] = useState({});
+  const [tvGenres, setTvGenres] = useState({});
+
+  useEffect(() => {
+    const getAll = async () => {
+      let list = await Tmdb.getGenres();
+      setMoviesList(list);
+      setMovieGenres(list[0].items.genres);
+      setTvGenres(list[1].items.genres);
+    };
+
+    getAll();
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <section className="container">
+        <div className="section--movies">
+          <Movies
+            list={moviesList}
+            movieGenres={movieGenres}
+            genresTv={tvGenres}
+          />
+        </div>
+      </section>
     </div>
   );
 }

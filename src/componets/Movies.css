@@ -1,0 +1,134 @@
+main {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+.movie--container {
+  position: relative;
+  width: 800px;
+  height: 550px;
+  backdrop-filter: blur(30px);
+  border-radius: 30px;
+  display: flex;
+  box-shadow: 0 0 25px #000;
+  overflow: hidden;
+}
+
+.movie--options {
+  width: 100px;
+  height: 110px;
+  border-right: 1px solid #ffffff0d;
+  border-bottom: 1px solid #ffffff0d;
+  text-align: center;
+  justify-content: center;
+  padding: 15px;
+}
+
+.movie--options .movie--button {
+  margin-top: 8px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.movie--button {
+  text-shadow: 0 0 5px #000;
+}
+
+.movie--options .movie--button:hover {
+  color: #ffffff81;
+}
+
+.movie,
+.tv {
+  position: relative;
+  width: 70px;
+}
+
+.movie:nth-child(1)::before,
+.tv:nth-child(2)::before {
+  position: absolute;
+  bottom: 0;
+  left: 15px;
+  content: '';
+  width: 100%;
+  height: 3px;
+  background-color: #fff;
+  transition: 0.3s;
+}
+
+.movie:hover::before,
+.tv:hover::before {
+  background-color: #ffffff81;
+}
+
+.movie--choose--container {
+  width: 100%;
+}
+
+.movie--choose {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+  height: 110px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 30px;
+  border-bottom: 1px solid #ffffff0d;
+  margin-bottom: 30px;
+}
+
+.button {
+  padding: 5px 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #000;
+  transition: 0.3s;
+}
+
+.button:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+.movie--info--container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin-top: 110px;
+  padding: 30px;
+}
+
+@media (max-width: 700px) {
+  main {
+    padding: 20px;
+  }
+  .movie--container {
+    width: 400px;
+    height: 760px;
+  }
+
+  .movie--container {
+    margin-top: 60px;
+  }
+}
+
+@media (max-width: 350) {
+  main {
+    padding: 0;
+  }
+
+  .movie--container {
+    width: 100vw;
+  }
+}

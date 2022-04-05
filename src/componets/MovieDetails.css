@@ -1,0 +1,99 @@
+.movieDetail--container {
+  display: flex;
+}
+
+.detail--image {
+  width: 250px;
+  margin-right: 30px;
+}
+
+.detail--image img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.detail--title {
+  text-shadow: 0 0 5px #000;
+  font-size: 2rem;
+}
+
+.detail--details {
+  text-shadow: 0 0 2px #000;
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #ffffffdd;
+}
+
+.detail--overview {
+  margin-top: 10px;
+  max-width: 400px;
+  font-size: 0.85rem;
+  color: #ffffffdd;
+  text-shadow: 0 0 2px #000;
+}
+
+.detail--justwatch {
+  margin-top: 10px;
+  width: 100px;
+}
+
+.detail--justwatch img {
+  width: 100%;
+}
+
+.detail--logos {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  font-size: 0.8rem;
+  align-items: center;
+  text-shadow: 0 0 2px #000;
+}
+
+.detail--logo {
+  width: 40px;
+}
+
+.detail--logo img {
+  border-radius: 5px;
+  width: 100%;
+  box-shadow: 0 0 5px 1px #000;
+}
+
+@media (max-width: 700px) {
+  .movieDetail--container {
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .detail--image {
+    width: 200px;
+    margin: auto 0;
+  }
+
+  .detail--info {
+    margin: auto 0;
+  }
+
+  .detail--title {
+    width: 300px;
+    margin-top: 20px;
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .detail--details {
+    margin-top: 20px;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+  }
+  .detail--overview {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 0.75rem;
+  }
+}
