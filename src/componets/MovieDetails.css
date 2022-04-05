@@ -10,6 +10,7 @@
 .detail--image img {
   max-width: 100%;
   border-radius: 8px;
+  box-shadow: 0 0 50px #000;
 }
 
 .detail--title {
