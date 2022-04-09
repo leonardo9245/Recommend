@@ -54,27 +54,65 @@ function MovieDetails({ movie, providers }) {
   };
 
   const watch = () => {
+    const justWatch = () => {
+      return (
+        <div className="detail--justwatch">
+          <a target="_blank" href="https://www.justwatch.com/">
+            <img
+              src={`https://www.themoviedb.org/assets/2/v4/logos/justwatch-c2e58adf5809b6871db650fb74b43db2b8f3637fe3709262572553fa056d8d0a.svg `}
+              alt="justWatch logo"
+            />
+          </a>
+        </div>
+      );
+    };
+
+    const showProvidersLogo = val => {
+      return (
+        <div className="detail--logo">
+          <a href={`${providers.link}`} target="_blank">
+            <img
+              src={`https://image.tmdb.org/t/p/original${val.logo_path}`}
+              alt={val.provider_name}
+            />
+          </a>
+        </div>
+      );
+    };
+
     if (providers !== '') {
-      if (providers.flatrate) {
+      if (providers.free) {
         return (
           <div>
-            <div className="detail--justwatch">
-              <a target="_blank" href="https://www.justwatch.com/">
-                <img
-                  src={`https://www.themoviedb.org/assets/2/v4/logos/justwatch-c2e58adf5809b6871db650fb74b43db2b8f3637fe3709262572553fa056d8d0a.svg `}
-                />
-              </a>
+            {justWatch()}
+            <div className="detail--logos">
+              Assita Grátis:
+              {providers.free.map((val, key) => (
+                <div key={key}>{showProvidersLogo(val)}</div>
+              ))}
             </div>
+          </div>
+        );
+      } else if (providers.flatrate) {
+        return (
+          <div>
+            {justWatch()}
             <div className="detail--logos">
               Disponível em:
               {providers.flatrate.map((val, key) => (
-                <div className="detail--logo" key={key}>
-                  <a href={`${providers.link}`} target="_blank">
-                    <img
-                      src={`https://image.tmdb.org/t/p/original${val.logo_path}`}
-                    />
-                  </a>
-                </div>
+                <div key={key}>{showProvidersLogo(val)}</div>
+              ))}
+            </div>
+          </div>
+        );
+      } else if (providers.rent) {
+        return (
+          <div>
+            {justWatch()}
+            <div className="detail--logos">
+              Alugue em:
+              {providers.rent.map((val, key) => (
+                <div key={key}>{showProvidersLogo(val)}</div>
               ))}
             </div>
           </div>
@@ -82,23 +120,11 @@ function MovieDetails({ movie, providers }) {
       } else if (providers.buy) {
         return (
           <div>
-            <div className="detail--justwatch">
-              <a target="_blank" href="https://www.justwatch.com/">
-                <img
-                  src={`https://www.themoviedb.org/assets/2/v4/logos/justwatch-c2e58adf5809b6871db650fb74b43db2b8f3637fe3709262572553fa056d8d0a.svg `}
-                />
-              </a>
-            </div>
+            {justWatch()}
             <div className="detail--logos">
-              Disponível em:
+              Compre em:
               {providers.buy.map((val, key) => (
-                <div className="detail--logo" key={key}>
-                  <a target="_blank" href={`${providers.link}`}>
-                    <img
-                      src={`https://image.tmdb.org/t/p/original${val.logo_path}`}
-                    />
-                  </a>
-                </div>
+                <div key={key}>{showProvidersLogo(val)}</div>
               ))}
             </div>
           </div>
@@ -122,6 +148,7 @@ function MovieDetails({ movie, providers }) {
             </div>
             <div className="detail--details">
               <div className="detail--points" style={{ color: `${color}` }}>
+                <span style={{ color: '#ffffffdd' }}>Classificação: </span>
                 {movie.vote_average}
               </div>
               <div className="detail--year">{getDate()}</div>
@@ -134,7 +161,7 @@ function MovieDetails({ movie, providers }) {
           </div>
         </div>
       ) : (
-        <div style={{ color: '#ffffff22' }}>Não há nada por aqui ainda...</div>
+        <div className="no-movies">Não há nada por aqui ainda...</div>
       )}
     </>
   );

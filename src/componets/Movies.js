@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import './Movies.css';
 import Tmdb from '../Tmdb';
 import MovieDetails from './MovieDetails';
-import { wait } from '@testing-library/user-event/dist/utils';
 
 function Movies({ list, movieGenres, genresTv }) {
   const [selected, setSelected] = useState('movie');
@@ -10,23 +9,34 @@ function Movies({ list, movieGenres, genresTv }) {
   const [id, setId] = useState('');
   const [chosen, setChosen] = useState({});
   const [providers, setProviders] = useState({});
+  const [pageNumber, setPageNumber] = useState(1);
   const gMovies = Array.from(movieGenres);
   const gTv = Array.from(genresTv);
 
   useEffect(() => {
-    setId('');
     const getRecomendation = async () => {
-      if (id != '') {
-        let list = await Tmdb.getMovieList(selected, id);
+      if (id !== '') {
+        let page = Math.floor(Math.random() * pageNumber) + 1;
 
-        console.log(list.page);
+        let list = await Tmdb.getMovieList(selected, id, page);
+
+        if (list.total_pages >= 60) {
+          setPageNumber(60);
+        } else {
+          setPageNumber(list.total_pages);
+        }
 
         let randomOption = Math.floor(Math.random() * list.results.length);
 
         let preRecomendation = list.results[randomOption];
 
         let recomend = await Tmdb.getChosen(selected, preRecomendation.id);
-        setChosen(recomend);
+        if (recomend.overview !== '') {
+          setChosen(recomend);
+        } else {
+          setId(id);
+          setPageNumber(5);
+        }
 
         let providersList = await Tmdb.getProviders(
           selected,
@@ -42,16 +52,19 @@ function Movies({ list, movieGenres, genresTv }) {
     };
 
     getRecomendation();
+
+    setId('');
   }, [id]);
 
   const getMovie = id => {
-    if (selected == 'movie') {
+    setPageNumber(2);
+    if (selected === 'movie') {
       for (let i in gMovies) {
         if (gMovies[i].id == id) {
           setGenreID(gMovies[i].id);
         }
       }
-    } else if (selected == 'tv') {
+    } else if (selected === 'tv') {
       for (let i in gTv) {
         if (gTv[i].id == id) {
           setGenreID(gTv[i].id);
@@ -101,7 +114,7 @@ function Movies({ list, movieGenres, genresTv }) {
               backgroundPosition: 'center',
               background: `url(https://image.tmdb.org/t/p/original${chosen.backdrop_path})`
             }
-          : { background: '#010429' }
+          : { background: 'linear-gradient(45deg, #5d32d0, #04527d )' }
       }
     >
       <div className="movie--container">

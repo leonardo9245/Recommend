@@ -28,19 +28,19 @@ export default {
     ];
   },
 
-  getMovieList: async (type, genre) => {
+  getMovieList: async (type, genre, page) => {
     let result = {};
 
     if (genre) {
       switch (type) {
         case 'movie':
           result = await basicFetch(
-            `/discover/movie?with_genres=${genre}&language=pt-BR&api_key=${API_KEY}`
+            `/discover/movie?with_genres=${genre}&language=pt-BR&api_key=${API_KEY}&page=${page}&with_watch_monetization_types=flatrate`
           );
           break;
         case 'tv':
           result = await basicFetch(
-            `/discover/tv?with_genres=${genre}&language=pt-BR&api_key=${API_KEY}`
+            `/discover/tv?with_genres=${genre}&language=pt-BR&api_key=${API_KEY}&page=${page}&with_watch_monetization_types=flatrate`
           );
           break;
       }
