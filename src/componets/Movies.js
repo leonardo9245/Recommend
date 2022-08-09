@@ -105,6 +105,8 @@ function Movies({ list, movieGenres, genresTv }) {
     }
   };
 
+  console.log(genreID);
+
   return (
     <main
       style={
